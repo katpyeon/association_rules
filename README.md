@@ -1,169 +1,176 @@
-# 연관 규칙 기반 상품 추천 시스템
+# Association Rule-Based Product Recommendation System
 
-이 프로젝트는 장바구니 분석(Market Basket Analysis)을 통해 연관 규칙(Association Rules)을 발견하고, 이를 기반으로 상품을 추천하는 웹 애플리케이션입니다.
+This project is a web application that discovers association rules through Market Basket Analysis and recommends products based on these rules.
 
-## 주요 기능
+## Main Features
 
-- 식료품 구매 데이터에서 상품 간 연관성 분석
-- 특정 상품 선택 시 함께 구매 가능성이 높은 상품 추천
-- 직관적인 웹 인터페이스로 쉽게 결과 확인
+- Analyze associations between products in grocery purchase data
+- Recommend products that are likely to be purchased together when a specific product is selected
+- Easily check results through an intuitive web interface
 
-## 기술 스택
+## Tech Stack
 
 - **Python 3.6+**
-- **Poetry**: 의존성 관리
-- **Pandas**: 데이터 분석 및 처리
-- **MLxtend**: 연관 규칙 마이닝 (Apriori 알고리즘)
-- **Gradio**: 웹 인터페이스 구현
+- **Poetry**: Dependency management
+- **Pandas**: Data analysis and processing
+- **MLxtend**: Association rule mining (Apriori algorithm)
+- **Gradio**: Web interface implementation
 
-## 설치 방법
+## Installation
 
-### 사전 요구사항
+### Prerequisites
 
-- Python 3.6 이상
-- [Poetry](https://python-poetry.org/docs/#installation) 설치
+- Python 3.6 or higher
+- [Poetry](https://python-poetry.org/docs/#installation) installed
 
-### 설치 단계
+### Installation Steps
 
-1. 저장소 클론하기
+1. Clone the repository
 
 ```bash
 git clone https://github.com/katpyeon/association_rules.git
 cd association_rules
 ```
 
-2. Poetry를 사용하여 의존성 설치
+2. Install dependencies using Poetry
 
 ```bash
 poetry install
 ```
 
-3. 프로젝트 실행
+3. Run the project
 
-Poetry를 사용하는 방법은 두 가지가 있습니다:
+There are two ways to use Poetry:
 
-**방법 1: poetry run 사용 (권장)**
+**Method 1: Using poetry run (Recommended)**
 
 ```bash
 poetry run python src/app.py
 ```
 
-**방법 2: 직접 Python 실행**
+**Method 2: Run Python directly**
 
 ```bash
-# 이 명령은 virtual environment를 직접 활성화하지 않고 poetry의 환경에서 명령을 실행합니다
+# This command runs in Poetry's environment without manually activating the virtual environment
 poetry shell
 python src/app.py
 ```
 
-> **참고**: 최신 Poetry 버전에서는 `poetry run` 방식이 권장됩니다. 이 방식은 환경 활성화 문제 없이 항상 올바른 의존성으로 코드를 실행할 수 있습니다.
+> **Note**: The latest version of Poetry recommends using `poetry run`. This method ensures your code always runs with the correct dependencies without environment activation issues.
 
-## 사용 방법
+## How to Use
 
-1. 애플리케이션이 실행되면 웹 브라우저에서 `http://localhost:7860`에 접속
+1. Once the application is running, open your web browser and go to `http://localhost:7860`
 
-2. 드롭다운에서 상품을 선택하면 함께 구매하는 상위 5개 상품을 추천 받을 수 있습니다.
+2. Select a product from the dropdown to receive the top 5 products most likely to be purchased together.
 
-## 데이터셋
+## Dataset
 
-이 프로젝트는 식료품 구매 데이터셋(`datasets/groceries_dataset.csv`)을 사용합니다. 이 데이터셋은 다음과 같은 형식입니다:
+This project uses a grocery purchase dataset (`datasets/groceries_dataset.csv`). The dataset has the following format:
 
-- Member_number: 회원 번호
-- Date: 구매 날짜
-- itemDescription: 구매한 상품명
+- Member_number: Member ID
+- Date: Purchase date
+- itemDescription: Name of the purchased product
 
-## 프로젝트 구조
+## Project Structure
 
 ```
 association_rules/
-├── datasets/            # 데이터셋 디렉토리
+├── datasets/            # Dataset directory
 │   └── groceries_dataset.csv
-├── src/                 # 소스 코드
-│   └── app.py           # 메인 애플리케이션
-├── pyproject.toml       # Poetry 설정 파일
-├── poetry.lock          # Poetry 의존성 잠금 파일
-├── .gitignore           # Git 무시 파일
-└── README.md            # 프로젝트 설명
+├── src/                 # Source code
+│   └── app.py           # Main application
+├── pyproject.toml       # Poetry configuration file
+├── poetry.lock          # Poetry dependency lock file
+├── .gitignore           # Git ignore file
+└── README.md            # Project description
 ```
 
-## Poetry 개발 명령어
+## Poetry Development Commands
 
 ```bash
-# 의존성 추가
-poetry add <패키지명>
+# Add a dependency
+poetry add <package_name>
 
-# 개발 의존성 추가
-poetry add --dev <패키지명>
+# Add a development dependency
+poetry add --dev <package_name>
 
-# 의존성 업데이트
+# Update dependencies
 poetry update
 
-# 가상환경 정보 확인
+# Check virtual environment info
 poetry env info
 ```
 
-## 다른 데이터셋으로 코드 실행하기
+## Running with a Different Dataset
 
-이 프로젝트는 다른 거래 데이터셋에서도 사용할 수 있습니다. 자신만의 데이터로 분석하려면 다음 단계를 따르세요:
+This project can be used with other transaction datasets. To analyze your own data, follow these steps:
 
-### 1. 데이터셋 준비
+### 1. Prepare Your Dataset
 
-새 데이터셋은 다음 형식을 따라야 합니다:
+The new dataset should follow this format:
 
-- CSV 파일 형식
-- 필수 열:
-  - `Member_number`: 고객 ID (문자열로 변환됨)
-  - `Date`: 구매 날짜 (날짜 형식으로 파싱 가능해야 함)
-  - `itemDescription`: 구매한 상품명
+- CSV file format
+- Required columns:
+  - `Member_number`: Customer ID (will be converted to string)
+  - `Date`: Purchase date (must be parsable as a date)
+  - `itemDescription`: Name of the purchased product
 
-예시:
+Example:
 
 ```
 Member_number,Date,itemDescription
-1001,2023-01-05,우유
-1001,2023-01-05,빵
-1002,2023-01-06,사과
+1001,2023-01-05,Milk
+1001,2023-01-05,Bread
+1002,2023-01-06,Apple
 ```
 
-### 2. 데이터셋 교체
+### 2. Replace the Dataset
 
-준비된 데이터셋을 프로젝트에 추가하는 방법:
+How to add your prepared dataset to the project:
 
-1. 새 데이터셋을 `datasets/` 디렉토리에 저장합니다.
-2. `src/app.py` 파일을 편집하여 데이터 경로를 수정합니다:
+1. Save the new dataset in the `datasets/` directory.
+2. Edit the `src/app.py` file to change the data path:
 
 ```python
-# 다음 라인을 찾아 수정
-df = pd.read_csv("datasets/groceries_dataset.csv")
+# Find and modify this line
+ df = pd.read_csv("datasets/groceries_dataset.csv")
 
-# 새 데이터셋 경로로 변경
-df = pd.read_csv("datasets/your_new_dataset.csv")
+# Change to your new dataset path
+ df = pd.read_csv("datasets/your_new_dataset.csv")
 ```
 
-### 3. 하이퍼파라미터 조정 (선택 사항)
+### 3. Adjust Hyperparameters (Optional)
 
-데이터셋 특성에 따라 연관 규칙 생성 파라미터를 조정할 수 있습니다:
+Depending on your dataset, you can adjust the parameters for generating association rules:
 
 ```python
-# 다음 라인을 찾습니다
+# Find these lines
 frequent_itemsets = apriori(as_df, min_support=0.0045, use_colnames=True)
 rules = association_rules(frequent_itemsets, metric="conviction", min_threshold=0.001)
 
-# 데이터셋 크기와 특성에 따라 파라미터 조정:
-# - min_support: 더 작은 값은 더 많은 규칙 생성, 더 큰 값은 더 강한 연관성만 포함
-# - min_threshold: conviction 값의 최소 임계값
+# Adjust parameters based on your dataset size and characteristics:
+# - min_support: Lower values generate more rules, higher values include only stronger associations
+# - min_threshold: Minimum threshold for conviction value
 ```
 
-### 4. 코드 실행
+### 4. Run the Code
 
-변경 후 평소와 같이 코드를 실행합니다:
+After making changes, run the code as usual:
 
 ```bash
 poetry run python src/app.py
 ```
 
-> **참고**: 데이터셋이 매우 크면 처리 시간이 길어질 수 있습니다. 이 경우 더 작은 샘플로 먼저 테스트하는 것이 좋습니다.
+> **Note**: If your dataset is very large, processing may take a long time. It's recommended to test with a smaller sample first.
 
-## 라이센스
+## License
 
-이 프로젝트는 MIT 라이센스를 따릅니다.
+This project is licensed under the MIT License.
+
+
+---
+
+<a href="https://www.buymeacoffee.com/katpyeon" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="40" />
+</a>
